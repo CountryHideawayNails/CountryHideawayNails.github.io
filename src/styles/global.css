@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
+
+@import "tailwindcss";
+
+body {
+    font-family: "Merriweather", sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+}
+
+h1 {
+    font-family: "Caveat", cursive;
+    font-weight: normal;
+    letter-spacing: 0.05em;
+}

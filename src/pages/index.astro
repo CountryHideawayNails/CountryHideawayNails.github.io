@@ -1,7 +1,254 @@
 ---
+import { Image } from "astro:assets";
 import NavLayout from "../layouts/NavLayout.astro";
+
+interface WorkCarouselItem {
+    image: string;
+    review: {
+        person: string;
+        profile_image: string;
+        rating: 1 | 2 | 3 | 4 | 5;
+        description: string;
+    };
+};
+
+const carousel_items: WorkCarouselItem[] = [
+    {
+        image: "https://placehold.co/100x100",
+        review: {
+            person: "John Smith",
+            profile_image: "https://placehold.co/100x100",
+            rating: 1,
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        },
+    },
+    {
+        image: "https://placehold.co/100x100",
+        review: {
+            person: "Quincy Smith",
+            profile_image: "https://placehold.co/100x100",
+            rating: 2,
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        },
+    },
+    {
+        image: "https://placehold.co/100x100",
+        review: {
+            person: "Terry Smith",
+            profile_image: "https://placehold.co/100x100",
+            rating: 3,
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        },
+    },
+    {
+        image: "https://placehold.co/100x100",
+        review: {
+            person: "Angela Smith",
+            profile_image: "https://placehold.co/100x100",
+            rating: 4,
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        },
+    },
+    {
+        image: "https://placehold.co/100x100",
+        review: {
+            person: "Bob Smith",
+            profile_image: "https://placehold.co/100x100",
+            rating: 5,
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        },
+    }
+];
 ---
 
 <NavLayout page_title={undefined}>
-    
+    <!-- * HERO SECTION * -->
+    <div class="flex items-center justify-around gap-16">
+        <Image
+            src="https://placehold.co/100x100"
+            class="w-100"
+            alt="Hero-Section"
+            width={100}
+            height={100}
+            loading="eager"
+        />
+        <div>
+            <h1 class="text-4xl pb-4">Welcome!</h1>
+            <h1 class="text-4xl pb-4">Country Hideaway Nails</h1>
+            <a href="/book">
+                <button class="text-lg cursor-pointer border rounded-full px-2 py-1">
+                    Book Appointment
+                </button>
+            </a>
+            <p class="text-lg pt-2">
+                Or see our&nbsp;
+                <a href="/serivces" class="text-blue-600">
+                    Prices!
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <!-- * OWNER & BUSINESS INTRODUCTION * -->
+    <div class="flex items-center justify-around flex-wrap mt-16 mx-16">
+        <Image
+            src="https://placehold.co/100x100"
+            class="mr-4 min-w-[50vw] md:min-w-[20vw] mb-4"
+            alt="Owner-Portrait"
+            width={100}
+            height={100}
+            loading="eager"
+        />
+
+        <div class="ml-4">
+            <h1 class="text-4xl pb-4">Hello!</h1>
+            <p class="max-w-full md:max-w-[50vw]">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+        </div>
+    </div>
+
+    <!-- * PRIOR WORK CAROUSEL * -->
+    <div class="relative w-full my-4">
+        <div
+            class="min-w-full flex flex-nowrap overflow-hidden"
+            id="work-carousel"
+        >
+            {carousel_items.map((item: WorkCarouselItem, index: number) => (
+                <div
+                    class={`
+                        flex flex-wrap sm:flex-nowrap items-center justify-center
+                        flex-shrink-0 w-[60vw] lg:w-[40vw] z-0 work-carousel-item
+                        ${index === 0 ? "ml-[-40vw] lg:ml-[-10vw]" : ""}
+                    `}
+                >
+                    <Image
+                        src={item.image}
+                        class="size-[60vw] sm:size-[30vw] lg:size-[20vw]"
+                        alt={`Carousel-${index}`}
+                        width={100}
+                        height={100}
+                        loading="eager"
+                    />
+                    <div class="p-4">
+                        <div class="flex items-center">
+                            <Image
+                                src={item.review.profile_image}
+                                class="rounded-full size-10 mr-2"
+                                alt={`Review-Profile-${index}`}
+                                width={10}
+                                height={10}
+                                loading="eager"
+                            />
+                            <div>
+                                <h1 class="text-xl">{item.review.person}</h1>
+                                <div class="flex gap-2">
+                                    {Array.from({
+                                        length: item.review.rating
+                                    }, (_, star_index: number) => (
+                                        <Image
+                                            src="https://placehold.co/10x10"
+                                            class="size-4"
+                                            alt={`Review-Star-${index}-${star_index}`}
+                                            width={10}
+                                            height={10}
+                                            loading="eager"
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                        <p>{item.review.description}</p>
+                    </div>
+                </div>
+            ))}
+        </div>
+
+        <div 
+            class={`
+                absolute hidden sm:block w-16 h-full top-0 left-16 from-white
+                to-transparent bg-linear-to-r z-1
+            `}
+        ></div>
+        <div
+            class={`
+                absolute hidden sm:block w-16 h-full top-0 right-16 from-white
+                to-transparent bg-linear-to-l z-1
+            `}
+        ></div>
+
+        <div class="absolute hidden sm:block w-16 h-full top-0 left-0 bg-white z-1"></div>
+        <div class="absolute hidden sm:block w-16 h-full top-0 right-0 bg-white z-1"></div>
+    </div>
+
+    <!-- * FACEBOOK COMMUNITY CALLOUT * -->
+    <div class="flex items-center justify-around flex-wrap mx-16">
+        <div>
+            <h1 class="text-4xl pb-4">Stay Connected!</h1>
+            <p class="max-w-full md:max-w-[50vw]">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+        </div>
+
+        <Image
+            src="https://placehold.co/100x100"
+            class="mr-4 min-w-[50vw] md:min-w-[20vw] mb-4"
+            alt="Facebook-Embed-Placeholder"
+            width={100}
+            height={100}
+            loading="eager"
+        />
+    </div>
+
+    <!-- * SCRIPTS * -->
+    <script>
+        const review_carousel = document.getElementById("work-carousel");
+        const review_cells = Array.from(
+            document.getElementsByClassName("work-carousel-item")
+        );
+
+        if (review_carousel && review_cells.length > 0) {
+            const item_width = review_cells[0].clientWidth;
+
+            let index = 0;
+            let is_paused = false;
+            let is_resetting = false;
+
+            review_carousel.addEventListener("mouseenter", () => is_paused = true);
+            review_carousel.addEventListener("mouseleave", () => is_paused = false);
+            
+            review_cells.forEach((cell: Element) => {
+                const clone = cell.cloneNode(true) as Element;
+                clone.classList.remove("ml-[-40vw]", "lg:ml-[-10vw]");
+                review_carousel.appendChild(clone);
+            });
+
+            setInterval(() => {
+                if (is_resetting || is_paused) {
+                    return;
+                }
+
+                ++index;
+
+                review_carousel.scrollTo({
+                    left: index * item_width,
+                    behavior: "smooth",
+                });
+
+                if (index == review_cells.length) {
+                    is_resetting = true;
+
+                    setTimeout(() => {
+                        review_carousel.scrollTo({
+                            left: 0,
+                            behavior: "auto",
+                        });
+
+                        index = 0;
+                        is_resetting = false;
+                    }, 500)
+                }
+            }, 5000);
+        }
+    </script>
 </NavLayout>
