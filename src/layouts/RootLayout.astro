@@ -1,0 +1,46 @@
+---
+export interface RootLayoutProps {
+    page_title?: string;
+};
+
+interface SiteMetaData {
+    title: string;
+    authors: string[];
+    description: string;
+    icon_path: string;
+};
+
+const { page_title } = Astro.props as RootLayoutProps;
+
+const meta_data: SiteMetaData = {
+    title: page_title
+        ? `Country Hideaway Nails - ${page_title}`
+        : "Country Hideaway Nails",
+    authors: [
+        "Novice Engineer",
+        "Athena Riggle",
+    ],
+    description: "",
+    icon_path: "favicon.ico",
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content={meta_data.description}>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        {meta_data.authors.map((author: string) => {
+            <meta name="author" content={author}>
+        })}
+
+        <link rel="icon" href={meta_data.icon_path} type="image/x-icon">
+
+        <title>{meta_data.title}</title>
+    </head>
+    <body>
+        <slot/>
+    </body>
+</html>
