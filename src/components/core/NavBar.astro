@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-console.log(Astro.url.pathname)
+
 interface NavLink {
     title: string;
     href: string;
@@ -33,6 +33,7 @@ const nav_links: NavLink[] = [
         />
         <h1 class="text-xl">Country Hideaway Nails</h1>
     </div>
+    <p>{Astro.url.pathname}</p>
 
     <!-- * Large-Screen Navigation Links * -->
     <div class="hidden sm:block">
