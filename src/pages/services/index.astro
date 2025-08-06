@@ -1,7 +1,194 @@
 ---
+import { Image } from "astro:assets";
 import NavLayout from "../../layouts/NavLayout.astro";
+
+interface Service {
+    title: string;
+    description?: string;
+    cost: number;
+};
+
+interface ServiceGroup {
+    title: string;
+    services: Service[];
+};
+
+// TODO: Grab these from good external source with low latency.
+function gatherServiceGroups(): ServiceGroup[] {
+    return [
+        {
+            title: "Standard Nail Services",
+            services: [
+                {
+                    title: "Nail Painting",
+                    description: undefined,
+                    cost: 7.99,
+                }, {
+                    title: "Nail Painting",
+                    description: undefined,
+                    cost: 5,
+                }, {
+                    title: "Nail Painting",
+                    description: "This is what a description looks like.",
+                    cost: 3.009,
+                }, {
+                    title: "Nail Painting",
+                    description: undefined,
+                    cost: 7.99,
+                }, {
+                    title: "Nail Painting",
+                    description: undefined,
+                    cost: 7.99,
+                }, {
+                    title: "Nail Painting",
+                    description: undefined,
+                    cost: 7.99,
+                },
+            ],
+        }, {
+            title: "Standard Nail Services",
+            services: [
+                {
+                    title: "Nail Painting",
+                    description: undefined,
+                    cost: 7.99,
+                }, {
+                    title: "Nail Painting",
+                    description: undefined,
+                    cost: 7.99,
+                }, {
+                    title: "Nail Painting",
+                    description: undefined,
+                    cost: 7.99,
+                }, {
+                    title: "Nail Painting",
+                    description: undefined,
+                    cost: 7.99,
+                }, {
+                    title: "Nail Painting",
+                    description: undefined,
+                    cost: 7.99,
+                }, {
+                    title: "Nail Painting",
+                    description: undefined,
+                    cost: 7.99,
+                },
+            ],
+        }, {
+            title: "Standard Nail Services",
+            services: [
+                {
+                    title: "Nail Painting",
+                    description: undefined,
+                    cost: 7.99,
+                }, {
+                    title: "Nail Painting",
+                    description: undefined,
+                    cost: 7.99,
+                }, {
+                    title: "Nail Painting",
+                    description: undefined,
+                    cost: 7.99,
+                }, {
+                    title: "Nail Painting",
+                    description: undefined,
+                    cost: 7.99,
+                }, {
+                    title: "Nail Painting",
+                    description: undefined,
+                    cost: 7.99,
+                }, {
+                    title: "Nail Painting",
+                    description: undefined,
+                    cost: 7.99,
+                },
+            ],
+        },
+    ];
+}
+
+const service_groups: ServiceGroup[] = gatherServiceGroups();
 ---
 
 <NavLayout page_title="Services">
-    SITE UNDER CONSTRUCTION
+    <!-- * SERVICE PAGE TITLE * -->
+    <div class="mx-16 my-8">
+        <h1 class="text-xl sm:text-2xl lg:text-4xl">Available Products and Services</h1>
+        <hr />
+    </div>
+    
+    <!-- * SERVICE GROUPS * -->
+    <div class="mx-16 flex gap-8 justify-around flex-wrap">
+        {service_groups.map((group: ServiceGroup) => (
+            <div class="border rounded-2xl px-4 py-2 max-w-[500px] w-[500px]">
+                <h1 class="text-xl lg:text-2xl">{group.title}</h1>
+                {group.services.map((service: Service) => (
+                    <>
+                        <div class="flex pb-1">
+                            <p class="font-bold">{service.title}</p>
+                            <div class="flex-grow border-b-2 border-dotted min-w-[20px]"></div>
+                            <p>${service.cost.toFixed(2)}</p>
+                        </div>
+                        {service.description === undefined
+                            ? <></>
+                            : <div>
+                                <p class="ml-8">*&nbsp;{service.description}</p>
+                            </div>
+                        }
+                    </>
+                ))}
+            </div>
+        ))}
+    </div>
+
+    <!-- * CALL TO ACTION * -->
+    <div class="mx-16 my-8 flex items-center justify-center">
+        <div class="flex flex-col items-center gap-2">
+            <h1 class="text-2xl lg:text-3xl pb-2">Like What You See?</h1>
+            <a href="/book">
+                <button class="text-lg cursor-pointer border rounded-full px-2 py-1">
+                    Book Appointment
+                </button>
+            </a>
+
+            <p>Now Accepting</p>
+            <div class="flex gap-2">
+                <Image
+                    src="https://placehold.co/50x50"
+                    class="size-12"
+                    alt="Payment-Logo-Placeholder"
+                    width={50}
+                    height={50}
+                    loading="eager"
+                />
+
+                <Image
+                    src="https://placehold.co/50x50"
+                    class="size-12"
+                    alt="Payment-Logo-Placeholder"
+                    width={50}
+                    height={50}
+                    loading="eager"
+                />
+
+                <Image
+                    src="https://placehold.co/50x50"
+                    class="size-12"
+                    alt="Payment-Logo-Placeholder"
+                    width={50}
+                    height={50}
+                    loading="eager"
+                />
+
+                <Image
+                    src="https://placehold.co/50x50"
+                    class="size-12"
+                    alt="Payment-Logo-Placeholder"
+                    width={50}
+                    height={50}
+                    loading="eager"
+                />
+            </div>
+        </div>
+    </div>
 </NavLayout>

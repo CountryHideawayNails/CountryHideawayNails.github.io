@@ -2,6 +2,9 @@
 import { Image } from "astro:assets";
 import NavLayout from "../layouts/NavLayout.astro";
 
+import arrow_icon from "../assets/icons/arrow_icon.svg";
+import star_icon from "../assets/icons/star_icon.svg";
+
 interface WorkCarouselItem {
     image: string;
     review: {
@@ -147,11 +150,9 @@ const carousel_items: WorkCarouselItem[] = [
                                         length: item.review.rating
                                     }, (_, star_index: number) => (
                                         <Image
-                                            src="https://placehold.co/10x10"
+                                            src={star_icon}
                                             class="size-4"
                                             alt={`Review-Star-${index}-${star_index}`}
-                                            width={10}
-                                            height={10}
                                             loading="eager"
                                         />
                                     ))}
@@ -183,12 +184,10 @@ const carousel_items: WorkCarouselItem[] = [
 
     <div class="flex gap-3 mx-auto w-fit">
         <Image
-            src="https://placehold.co/10x10"
-            class="size-4 cursor-pointer"
+            src={arrow_icon}
+            class="size-4 cursor-pointer rotate-270"
             alt="Work-Carousel-Left"
             id="work-carousel-left"
-            width={10}
-            height={10}
             loading="eager"
             
         />
@@ -201,12 +200,10 @@ const carousel_items: WorkCarouselItem[] = [
         ))}
 
         <Image
-            src="https://placehold.co/10x10"
-            class="size-4 cursor-pointer"
+            src={arrow_icon}
+            class="size-4 cursor-pointer rotate-90"
             alt="Work-Carousel-Right"
             id="work-carousel-right"
-            width={10}
-            height={10}
             loading="eager"
         />
     </div>
