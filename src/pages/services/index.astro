@@ -2,112 +2,12 @@
 import { Image } from "astro:assets";
 import NavLayout from "../../layouts/NavLayout.astro";
 
-interface Service {
-    title: string;
-    description?: string;
-    cost: number;
-};
+import cash from "../../assets/icons/cash.svg";
+import cashapp from "../../assets/icons/cashapp.svg";
+import credit_card from "../../assets/icons/credit_card.svg";
+import venmo from "../../assets/icons/venmo.svg";
 
-interface ServiceGroup {
-    title: string;
-    services: Service[];
-};
-
-// TODO: Grab these from good external source with low latency.
-function gatherServiceGroups(): ServiceGroup[] {
-    return [
-        {
-            title: "Standard Nail Services",
-            services: [
-                {
-                    title: "Nail Painting",
-                    description: undefined,
-                    cost: 7.99,
-                }, {
-                    title: "Nail Painting",
-                    description: undefined,
-                    cost: 5,
-                }, {
-                    title: "Nail Painting",
-                    description: "This is what a description looks like.",
-                    cost: 3.009,
-                }, {
-                    title: "Nail Painting",
-                    description: undefined,
-                    cost: 7.99,
-                }, {
-                    title: "Nail Painting",
-                    description: undefined,
-                    cost: 7.99,
-                }, {
-                    title: "Nail Painting",
-                    description: undefined,
-                    cost: 7.99,
-                },
-            ],
-        }, {
-            title: "Standard Nail Services",
-            services: [
-                {
-                    title: "Nail Painting",
-                    description: undefined,
-                    cost: 7.99,
-                }, {
-                    title: "Nail Painting",
-                    description: undefined,
-                    cost: 7.99,
-                }, {
-                    title: "Nail Painting",
-                    description: undefined,
-                    cost: 7.99,
-                }, {
-                    title: "Nail Painting",
-                    description: undefined,
-                    cost: 7.99,
-                }, {
-                    title: "Nail Painting",
-                    description: undefined,
-                    cost: 7.99,
-                }, {
-                    title: "Nail Painting",
-                    description: undefined,
-                    cost: 7.99,
-                },
-            ],
-        }, {
-            title: "Standard Nail Services",
-            services: [
-                {
-                    title: "Nail Painting",
-                    description: undefined,
-                    cost: 7.99,
-                }, {
-                    title: "Nail Painting",
-                    description: undefined,
-                    cost: 7.99,
-                }, {
-                    title: "Nail Painting",
-                    description: undefined,
-                    cost: 7.99,
-                }, {
-                    title: "Nail Painting",
-                    description: undefined,
-                    cost: 7.99,
-                }, {
-                    title: "Nail Painting",
-                    description: undefined,
-                    cost: 7.99,
-                }, {
-                    title: "Nail Painting",
-                    description: undefined,
-                    cost: 7.99,
-                },
-            ],
-        },
-    ];
-}
-
-const service_groups: ServiceGroup[] = gatherServiceGroups();
+import all_service_groups, { type Service, type ServiceGroup } from "../../data/services";
 ---
 
 <NavLayout page_title="Services">
@@ -119,7 +19,7 @@ const service_groups: ServiceGroup[] = gatherServiceGroups();
     
     <!-- * SERVICE GROUPS * -->
     <div class="mx-16 flex gap-8 justify-around flex-wrap">
-        {service_groups.map((group: ServiceGroup) => (
+        {all_service_groups.map((group: ServiceGroup) => (
             <div class="border rounded-2xl px-4 py-2 max-w-[500px] w-[500px]">
                 <h1 class="text-xl lg:text-2xl">{group.title}</h1>
                 {group.services.map((service: Service) => (
@@ -127,7 +27,7 @@ const service_groups: ServiceGroup[] = gatherServiceGroups();
                         <div class="flex pb-1">
                             <p class="font-bold">{service.title}</p>
                             <div class="flex-grow border-b-2 border-dotted min-w-[20px]"></div>
-                            <p>${service.cost.toFixed(2)}</p>
+                            <p>{service.cost}</p>
                         </div>
                         {service.description === undefined
                             ? <></>
@@ -154,38 +54,30 @@ const service_groups: ServiceGroup[] = gatherServiceGroups();
             <p>Now Accepting</p>
             <div class="flex gap-2">
                 <Image
-                    src="https://placehold.co/50x50"
-                    class="size-12"
-                    alt="Payment-Logo-Placeholder"
-                    width={50}
-                    height={50}
+                    src={cash}
+                    class="size-8"
+                    alt="Cash-Accepted"
                     loading="eager"
                 />
 
                 <Image
-                    src="https://placehold.co/50x50"
-                    class="size-12"
-                    alt="Payment-Logo-Placeholder"
-                    width={50}
-                    height={50}
+                    src={credit_card}
+                    class="size-8"
+                    alt="Credit-Debit-Accepted"
                     loading="eager"
                 />
 
                 <Image
-                    src="https://placehold.co/50x50"
-                    class="size-12"
-                    alt="Payment-Logo-Placeholder"
-                    width={50}
-                    height={50}
+                    src={cashapp}
+                    class="size-8"
+                    alt="Cashapp-Accepted"
                     loading="eager"
                 />
 
                 <Image
-                    src="https://placehold.co/50x50"
-                    class="size-12"
-                    alt="Payment-Logo-Placeholder"
-                    width={50}
-                    height={50}
+                    src={venmo}
+                    class="size-8"
+                    alt="Venmo-Accepted"
                     loading="eager"
                 />
             </div>

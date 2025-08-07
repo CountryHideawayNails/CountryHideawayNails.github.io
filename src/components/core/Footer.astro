@@ -1,5 +1,8 @@
 ---
 import { Image } from "astro:assets";
+
+const contact_email: string = "athenadr71@gmail.com";
+const contact_phone: string = "(580) 235-7999";
 ---
 
 <footer>
@@ -20,10 +23,10 @@ import { Image } from "astro:assets";
             </div>
             <p>42032 Coker Rd, Wanette, OK 74878</p>
             <p>Phone:&nbsp;
-                <a href="tel:123-456-7890" class="text-blue-600">(123) 456-7890</a>
+                <a href={`tel:${contact_phone}`} class="text-blue-600">{contact_phone}</a>
             </p>
             <p>Email:&nbsp;
-                <a href="mailto:Example@Email.com" class="text-blue-600">Example@Email.com</a>
+                <a href={`mailto:${contact_email}`} class="text-blue-600">{contact_email}</a>
             </p>
         </div>
 
@@ -37,11 +40,11 @@ import { Image } from "astro:assets";
                 </tr>
                 <tr>
                     <td class="text-right">Monday - Friday:&nbsp;</td>
-                    <td>8am - 5pm</td>
+                    <td>9am - 7pm</td>
                 </tr>
                 <tr>
                     <td class="text-right">Saturday:&nbsp;</td>
-                    <td>8am - 1pm</td>
+                    <td>9am - 1pm</td>
                 </tr>
             </tbody>
         </table>

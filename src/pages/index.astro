@@ -5,87 +5,31 @@ import NavLayout from "../layouts/NavLayout.astro";
 import arrow_icon from "../assets/icons/arrow_icon.svg";
 import star_icon from "../assets/icons/star_icon.svg";
 
-interface WorkCarouselItem {
-    image: string;
-    review: {
-        person: string;
-        profile_image: string;
-        rating: 1 | 2 | 3 | 4 | 5;
-        description: string;
-    };
-};
+import owner_portrait from "../assets/images/owner_portrait.webp";
+import bourbonnais_cabin from "../assets/images/bourbonnais_cabin.webp";
 
-const carousel_items: WorkCarouselItem[] = [
-    {
-        image: "https://placehold.co/100x100",
-        review: {
-            person: "John Smith",
-            profile_image: "https://placehold.co/100x100",
-            rating: 1,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        },
-    },
-    {
-        image: "https://placehold.co/100x100",
-        review: {
-            person: "Quincy Smith",
-            profile_image: "https://placehold.co/100x100",
-            rating: 2,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        },
-    },
-    {
-        image: "https://placehold.co/100x100",
-        review: {
-            person: "Terry Smith",
-            profile_image: "https://placehold.co/100x100",
-            rating: 3,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        },
-    },
-    {
-        image: "https://placehold.co/100x100",
-        review: {
-            person: "Angela Smith",
-            profile_image: "https://placehold.co/100x100",
-            rating: 4,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        },
-    },
-    {
-        image: "https://placehold.co/100x100",
-        review: {
-            person: "Bob Smith",
-            profile_image: "https://placehold.co/100x100",
-            rating: 5,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        },
-    }
-];
+import all_reviews, { type Review } from "../data/reviews";
 ---
 
 <NavLayout page_title={undefined}>
     <!-- * HERO SECTION * -->
-    <div class="flex items-center justify-around gap-16">
-        <Image
-            src="https://placehold.co/100x100"
-            class="w-100"
-            alt="Hero-Section"
-            width={100}
-            height={100}
-            loading="eager"
-        />
-        <div>
+    <div
+        class="flex justify-end h-[60vh] bg-cover bg-no-repeat bg-center"
+        style={`
+            background-image: url(${bourbonnais_cabin.src});
+        `}
+    >
+        <div class="flex flex-col justify-center p-16 bg-white/75">
             <h1 class="text-4xl pb-4">Welcome!</h1>
             <h1 class="text-4xl pb-4">Country Hideaway Nails</h1>
             <a href="/book">
-                <button class="text-lg cursor-pointer border rounded-full px-2 py-1">
+                <button class="text-lg cursor-pointer border rounded-full px-2 py-1 bg-white">
                     Book Appointment
                 </button>
             </a>
-            <p class="text-lg pt-2">
+            <p class="text-lg pt-2 pl-2">
                 Or see our&nbsp;
-                <a href="/serivces" class="text-blue-600">
+                <a href="/services" class="text-blue-600">
                     Prices!
                 </a>
             </p>
@@ -95,18 +39,20 @@ const carousel_items: WorkCarouselItem[] = [
     <!-- * OWNER & BUSINESS INTRODUCTION * -->
     <div class="flex items-center justify-around flex-wrap mt-16 mx-16">
         <Image
-            src="https://placehold.co/100x100"
-            class="mr-4 min-w-[50vw] md:min-w-[20vw] mb-4"
+            src={owner_portrait}
+            class="mr-4 min-w-[50vw] md:min-w-[20vw] max-w-[500px] mb-4"
             alt="Owner-Portrait"
-            width={100}
-            height={100}
             loading="eager"
         />
 
         <div class="ml-4">
             <h1 class="text-4xl pb-4">Hello!</h1>
-            <p class="max-w-full md:max-w-[50vw]">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            <p class="max-w-full md:max-w-[600px] hidden sm:block">
+                My name is Athena Riggle, the owner and operator of Country Hideaway Nails. Before my family and I moved to the area in the summer of 2009, I often visited the many nails salons available in OKC. After moving to the country, however, I found that the nearest salon was often more than half-an-hour away. Because of this, I began performing my own nail-care services and quickly picked it up as a fun hobby. To make a long story short, I eventually decided to attain my nail technician certification and open Country Hideaway Nails: A peaceful, yet convenient salon for fellow rural American residents. I hope you&apos;ll visit soon!
+            </p>
+
+            <p class="max-w-full block sm:hidden">
+                My name is Athena Riggle, the owner and operator of Country Hideaway Nails. After moving to the country in the summer of 2009, I found that the nearest salon was often more than half-an-hour away. As such, I began performing my own nail-care services. Eventually I decided to attain my nail technician certification and open Country Hideaway Nails: A peaceful, yet convenient salon for fellow rural American residents. I hope you&apos;ll visit soon!
             </p>
         </div>
     </div>
@@ -117,7 +63,7 @@ const carousel_items: WorkCarouselItem[] = [
             class="min-w-full flex flex-nowrap overflow-hidden"
             id="work-carousel"
         >
-            {carousel_items.map((item: WorkCarouselItem, index: number) => (
+            {all_reviews.map((item: Review, index: number) => (
                 <div
                     class={`
                         flex flex-wrap sm:flex-nowrap items-center justify-center
@@ -129,8 +75,6 @@ const carousel_items: WorkCarouselItem[] = [
                         src={item.image}
                         class="size-[60vw] sm:size-[30vw] lg:size-[20vw]"
                         alt={`Carousel-${index}`}
-                        width={100}
-                        height={100}
                         loading="eager"
                     />
                     <div class="p-4">
@@ -139,8 +83,6 @@ const carousel_items: WorkCarouselItem[] = [
                                 src={item.review.profile_image}
                                 class="rounded-full size-10 mr-2"
                                 alt={`Review-Profile-${index}`}
-                                width={10}
-                                height={10}
                                 loading="eager"
                             />
                             <div>
@@ -182,7 +124,7 @@ const carousel_items: WorkCarouselItem[] = [
         <div class="absolute hidden sm:block w-16 h-full top-0 right-0 bg-white z-1"></div>
     </div>
 
-    <div class="flex gap-3 mx-auto w-fit">
+    <div class="flex gap-3 mx-auto w-fit pb-8">
         <Image
             src={arrow_icon}
             class="size-4 cursor-pointer rotate-270"
@@ -192,7 +134,7 @@ const carousel_items: WorkCarouselItem[] = [
             
         />
 
-        {carousel_items.map((_, index: number) => (
+        {all_reviews.map((_, index: number) => (
             <button
                 class="size-4 cursor-pointer rounded-full border"
                 data-scroll-index={index}
@@ -209,25 +151,46 @@ const carousel_items: WorkCarouselItem[] = [
     </div>
 
     <!-- * FACEBOOK COMMUNITY CALLOUT * -->
+    <div id="fb-root"></div>
     <div class="flex items-center justify-around flex-wrap mx-16">
         <div>
             <h1 class="text-4xl pb-4">Stay Connected!</h1>
-            <p class="max-w-full md:max-w-[50vw]">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            <p class="max-w-full md:max-w-[600px]">
+                Follow us over on <a href="https://www.facebook.com/groups/759089528933255" class="text-blue-600">Facebook</a> to receive up-to-date announcements, specials, and discounts! You can also peruse our published prior works in more detail and join our growing community of nail-art enthusiasts. We hope to see you there!
             </p>
         </div>
 
-        <Image
-            src="https://placehold.co/100x100"
-            class="mr-4 min-w-[50vw] md:min-w-[20vw] mb-4"
-            alt="Facebook-Embed-Placeholder"
-            width={100}
-            height={100}
-            loading="eager"
-        />
+        <div class="hidden sm:block">
+            <div
+                class="fb-page ml-4 mt-4 hidden sm:block"
+                data-href="https://www.facebook.com/dawna.riggle"
+                data-tabs="timeline"
+                data-width="500"
+                data-height="300"
+                data-small-header="false"
+                data-adapt-container-width="false"
+                data-hide-cover="false"
+                data-show-facepile="true"
+            >
+                <blockquote
+                    cite="https://www.facebook.com/dawna.riggle"
+                    class="fb-xfbml-parse-ignore"
+                >
+                    <a href="https://www.facebook.com/dawna.riggle">Athena Riggle</a>
+                </blockquote>
+            </div>
+        </div>
     </div>
 
     <!-- * SCRIPTS * -->
+    <script
+        is:inline
+        async
+        defer
+        crossorigin="anonymous"
+        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v23.0"
+    ></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const review_carousel = document.getElementById("work-carousel");
