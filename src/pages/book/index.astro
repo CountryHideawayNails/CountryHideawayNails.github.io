@@ -1,14 +1,14 @@
 ---
 import NavLayout from "../../layouts/NavLayout.astro";
 
-const contact_phone: string = "(580) 235-7999";
+import chn_contact_info from "../../data/contact_info";
 ---
 
 <NavLayout page_title="Book">
     <div class="mx-16 my-8 border-2 rounded-xl w-fit text-center px-8 py-4">
         <h1 class="text-4xl pb-4">Notice!</h1>
         <p>
-            Online booking services are currently under construction. To set an appointment, please call at the number: <a class="text-blue-600" href={`tel:${contact_phone}`}>{contact_phone}</a>. We apologize for any inconvenience.
+            Online booking services are currently under construction. To set an appointment, please call at the number: <a class="text-blue-600" href={`tel:${chn_contact_info.phone}`}>{chn_contact_info.phone}</a>. We apologize for any inconvenience.
         </p>
     </div>
 </NavLayout>

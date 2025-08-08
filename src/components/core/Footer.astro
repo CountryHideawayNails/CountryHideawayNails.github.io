@@ -1,8 +1,10 @@
 ---
 import { Image } from "astro:assets";
+import GoogleMapsEmbed from "../embeds/GoogleMapsEmbed.astro";
 
-const contact_email: string = "athenadr71@gmail.com";
-const contact_phone: string = "(580) 235-7999";
+import logo from "../../assets/logos/chn_logo_transparent.webp";
+
+import chn_contact_info from "../../data/contact_info";
 ---
 
 <footer>
@@ -12,21 +14,19 @@ const contact_phone: string = "(580) 235-7999";
         <div>
             <div class="flex items-center">
                 <Image
-                    src="https://placehold.co/10x10"
+                    src={logo}
                     class="size-14 mr-2"
                     alt="Footer-Logo"
-                    width={10}
-                    height={10}
                     loading="lazy"
                 />
                 <h1 class="text-lg">Country Hideaway Nails</h1>
             </div>
             <p>42032 Coker Rd, Wanette, OK 74878</p>
             <p>Phone:&nbsp;
-                <a href={`tel:${contact_phone}`} class="text-blue-600">{contact_phone}</a>
+                <a href={`tel:${chn_contact_info.phone}`} class="text-blue-600">{chn_contact_info.phone}</a>
             </p>
             <p>Email:&nbsp;
-                <a href={`mailto:${contact_email}`} class="text-blue-600">{contact_email}</a>
+                <a href={`mailto:${chn_contact_info.email}`} class="text-blue-600">{chn_contact_info.email}</a>
             </p>
         </div>
 
@@ -51,8 +51,8 @@ const contact_phone: string = "(580) 235-7999";
 
         <!-- * GOOGLE MAPS EMBED * -->
         <div class="w-[225px] h-[125px] sm:w-[450px] sm:h-[250px]">
-            <iframe
-                src={
+            <GoogleMapsEmbed
+                embed_link={
                     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3" +
                     "!1d4134.336023814412!2d-96.98677192424432!3d34.9566" +
                     "0697282981!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!" + 
@@ -60,13 +60,7 @@ const contact_phone: string = "(580) 235-7999";
                     "sCountry%20Hideaway%20Nails!5e1!3m2!1sen!2sus!4v175" + 
                     "4420410340!5m2!1sen!2sus"
                 }
-                title="Google-Maps-Embed"
-                width="100%"
-                height="100%"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
+            />
         </div>
     </div>
 

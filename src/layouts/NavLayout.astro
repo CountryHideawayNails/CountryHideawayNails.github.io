@@ -4,12 +4,12 @@ import RootLayout, { type RootLayoutProps } from "./RootLayout.astro";
 import NavBar from "../components/core/NavBar.astro";
 import Footer from "../components/core/Footer.astro";
 
-export interface NavLayoutProps extends RootLayoutProps {};
+interface Props extends RootLayoutProps {};
 
-const { page_title } = Astro.props as NavLayoutProps;
+export type NavLayoutProps = Props;
 ---
 
-<RootLayout page_title={page_title}>
+<RootLayout page_title={Astro.props.page_title}>
     <NavBar />
     <slot />
     <Footer />

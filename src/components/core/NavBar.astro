@@ -1,6 +1,8 @@
 ---
 import { Image } from "astro:assets";
 
+import logo from "../../assets/logos/chn_logo_transparent.webp";
+
 interface NavLink {
     title: string;
     href: string;
@@ -24,11 +26,9 @@ const nav_links: NavLink[] = [
     <!-- * Logo & Title * -->
     <div class="flex items-center">
         <Image
-            src="https://placehold.co/10x10"
+            src={logo}
             class="size-16 mr-2"
-            alt="Footer-Logo"
-            width={10}
-            height={10}
+            alt="Nav-Bar-Logo"
             loading="lazy"
         />
         <h1 class="text-xl">Country Hideaway Nails</h1>

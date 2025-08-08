@@ -1,0 +1,15 @@
+---
+interface Props {
+    embed_link: string;
+};
+---
+
+<iframe
+    src={Astro.props.embed_link}
+    title="Google-Maps-Embed"
+    width="100%"
+    height="100%"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+></iframe>

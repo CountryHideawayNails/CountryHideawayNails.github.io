@@ -1,6 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import NavLayout from "../layouts/NavLayout.astro";
+import Carousel from "../components/content/Carousel.astro";
+import FacebookEmbed from "../components/embeds/FacebookEmbed.astro";
 
 import arrow_icon from "../assets/icons/arrow_icon.svg";
 import star_icon from "../assets/icons/star_icon.svg";
@@ -58,6 +60,15 @@ import all_reviews, { type Review } from "../data/reviews";
     </div>
 
     <!-- * PRIOR WORK CAROUSEL * -->
+    <Carousel
+        scroll_interval={500}
+    >
+        <div>
+            <h1>Title</h1>
+            <p>Paragraph</p>
+        </div>
+        <h1>World</h1>
+    </Carousel>
     <div class="relative w-full my-4">
         <div
             class="min-w-full flex flex-nowrap overflow-hidden"
@@ -151,7 +162,6 @@ import all_reviews, { type Review } from "../data/reviews";
     </div>
 
     <!-- * FACEBOOK COMMUNITY CALLOUT * -->
-    <div id="fb-root"></div>
     <div class="flex items-center justify-around flex-wrap mx-16">
         <div>
             <h1 class="text-4xl pb-4">Stay Connected!</h1>
@@ -161,36 +171,16 @@ import all_reviews, { type Review } from "../data/reviews";
         </div>
 
         <div class="hidden sm:block">
-            <div
-                class="fb-page ml-4 mt-4 hidden sm:block"
-                data-href="https://www.facebook.com/dawna.riggle"
-                data-tabs="timeline"
-                data-width="500"
-                data-height="300"
-                data-small-header="false"
-                data-adapt-container-width="false"
-                data-hide-cover="false"
-                data-show-facepile="true"
-            >
-                <blockquote
-                    cite="https://www.facebook.com/dawna.riggle"
-                    class="fb-xfbml-parse-ignore"
-                >
-                    <a href="https://www.facebook.com/dawna.riggle">Athena Riggle</a>
-                </blockquote>
-            </div>
+            <FacebookEmbed
+                embed_link="https://www.facebook.com/dawna.riggle"
+                page_title="Athena Riggle"
+                pixel_width={500}
+                pixel_height={300}
+            />
         </div>
     </div>
 
     <!-- * SCRIPTS * -->
-    <script
-        is:inline
-        async
-        defer
-        crossorigin="anonymous"
-        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v23.0"
-    ></script>
-
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const review_carousel = document.getElementById("work-carousel");

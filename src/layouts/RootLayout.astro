@@ -1,9 +1,11 @@
 ---
 import "../styles/global.css";
 
-export interface RootLayoutProps {
+interface Props {
     page_title?: string;
 };
+
+export type RootLayoutProps = Props;
 
 interface SiteMetaData {
     title: string;
@@ -12,11 +14,9 @@ interface SiteMetaData {
     icon_path: string;
 };
 
-const { page_title } = Astro.props as RootLayoutProps;
-
 const meta_data: SiteMetaData = {
-    title: page_title
-        ? `Country Hideaway Nails - ${page_title}`
+    title: Astro.props.page_title
+        ? `Country Hideaway Nails - ${Astro.props.page_title}`
         : "Country Hideaway Nails",
     authors: [
         "Novice Engineer",
@@ -38,7 +38,7 @@ const meta_data: SiteMetaData = {
             <meta name="author" content={author}>
         })}
 
-        <link rel="icon" href={meta_data.icon_path} type="image/x-icon">
+        <link rel="icon" type="image/x-icon" href={`${meta_data.icon_path}`}>
 
         <title>{meta_data.title}</title>
     </head>

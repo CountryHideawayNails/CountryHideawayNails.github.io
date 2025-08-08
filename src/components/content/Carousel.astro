@@ -1,0 +1,26 @@
+---
+interface Props {
+    /** The amount of time between scrolls, measured in milliseconds. */
+    scroll_interval: number;
+};
+
+export type CarouselProps = Props;
+---
+
+<internal-carousel
+    data-scroll_interval={Astro.props.scroll_interval}
+>
+
+</internal-carousel>
+
+<script>
+    class InternalCarousel extends HTMLElement {
+        constructor() {
+            super();
+
+            const scroll_interval: number = Number(this.dataset.scroll_interval);
+        }
+    }
+
+    customElements.define("internal-carousel", InternalCarousel);
+</script>
