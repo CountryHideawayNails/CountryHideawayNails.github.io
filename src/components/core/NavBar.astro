@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import HamburgerMenu from "../content/HamburgerMenu.astro";
 
 import logo from "../../assets/logos/chn_logo_transparent.webp";
 
@@ -22,17 +23,19 @@ const nav_links: NavLink[] = [
 ];
 ---
 
-<nav class="flex items-center justify-between px-16 sticky top-0 bg-gray-100 z-100">
+<nav class="flex items-center justify-between px-16 sticky z-100 top-0 bg-gray-100">
     <!-- * Logo & Title * -->
-    <div class="flex items-center">
-        <Image
-            src={logo}
-            class="size-16 mr-2"
-            alt="Nav-Bar-Logo"
-            loading="lazy"
-        />
-        <h1 class="text-xl">Country Hideaway Nails</h1>
-    </div>
+    <a href="/">
+        <div class="flex items-center cursor-pointer">
+            <Image
+                src={logo}
+                class="size-16 mr-2"
+                alt="Nav-Bar-Logo"
+                loading="lazy"
+            />
+            <h1 class="text-xl">Country Hideaway Nails</h1>
+        </div>
+    </a>
 
     <!-- * Large-Screen Navigation Links * -->
     <div class="hidden sm:block">
@@ -50,5 +53,29 @@ const nav_links: NavLink[] = [
                 {link.title}
             </a>
         ))}
+    </div>
+
+    <!-- * Small-Screen Hamburger Menu * -->
+    <div class="sm:hidden">
+        <HamburgerMenu
+            vertical_position={4}
+            menu_class="flex flex-col gap-4 bg-white z-90 h-full fixed pt-8 px-8"
+        >
+            {nav_links.map((link: NavLink, index: number) => (<>
+                {index > 0 && <hr />}
+
+                <a
+                    href={link.href}
+                    class={`
+                        ${link.href.replaceAll('/', '') === Astro.url.pathname.replaceAll('/', '')
+                            ? "text-red-600"
+                            : ""
+                        }
+                    `}
+                >
+                    {link.title}
+                </a>
+            </>))}
+        </HamburgerMenu>
     </div>
 </nav>

@@ -1,0 +1,84 @@
+---
+interface Props {
+    vertical_position: number;
+    button_class?: string;
+    menu_class?: string;
+};
+---
+
+<button
+    id="Hamburger-Button"
+    class={`flex flex-col gap-1 cursor-pointer ${Astro.props.button_class}`}
+>
+    <div id="Hamburger-Bar-1" class="w-5 h-1 bg-black transition-transform duration-150 ease-in-out" />
+    <div id="Hamburger-Bar-2" class="w-5 h-1 bg-black transition-transform duration-150 ease-in-out" />
+    <div id="Hamburger-Bar-3" class="w-5 h-1 bg-black transition-transform duration-150 ease-in-out" />
+</button>
+
+<div
+    id="Hamburger-Menu"
+    class={`
+        absolute -right-full transition-[right] duration-150
+        ease-in-out ${Astro.props.menu_class}
+    `}
+    style={`top: ${Astro.props.vertical_position}em;`}
+>
+    <slot />
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const ham_bar_1 = document.getElementById("Hamburger-Bar-1");
+        const ham_bar_2 = document.getElementById("Hamburger-Bar-2");
+        const ham_bar_3 = document.getElementById("Hamburger-Bar-3");
+
+        const ham_btn = document.getElementById("Hamburger-Button");
+        const ham_menu = document.getElementById("Hamburger-Menu");
+
+        let is_menu_open: boolean = false;
+
+        if (
+            !ham_bar_1 ||
+            !ham_bar_2 ||
+            !ham_bar_3 ||
+            !ham_btn ||
+            !ham_menu
+        ) {
+            return;
+        }
+
+        const toggleHamburgerMenu = () => {
+            ham_bar_1.classList.toggle("rotate-135");
+            ham_bar_1.classList.toggle("translate-y-1");
+            ham_bar_2.classList.toggle("rotate-45");
+            ham_bar_2.classList.toggle("-translate-y-1");
+            ham_bar_3.classList.toggle("scale-y-0");
+
+            ham_menu.classList.toggle("-right-full");
+            ham_menu.classList.toggle("right-0");
+
+            is_menu_open = !is_menu_open;
+        }
+        
+        ham_btn.addEventListener("click", () => {
+            toggleHamburgerMenu();
+        });
+
+        document.addEventListener("pointerdown", (input_event: Event) => {
+            if (!input_event.target || !is_menu_open) {
+                return;
+            }
+
+            if (
+                ham_btn.contains(input_event.target as Node) ||
+                ham_menu.contains(input_event.target as Node) ||
+                ham_btn.shadowRoot?.contains(input_event.target as Node) ||
+                ham_menu.shadowRoot?.contains(input_event.target as Node)
+            ) {
+                return;
+            }
+
+            toggleHamburgerMenu();
+        });
+    });
+</script>
