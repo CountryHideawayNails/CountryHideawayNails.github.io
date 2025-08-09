@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import Link from "../components/content/Link.astro";
 import NavLayout from "../layouts/NavLayout.astro";
 import Carousel from "../components/content/Carousel.astro";
 import FacebookEmbed from "../components/embeds/FacebookEmbed.astro";
@@ -31,9 +32,9 @@ import all_reviews, { type Review } from "../data/reviews";
             </a>
             <p class="text-lg pt-2 pl-2">
                 Or see our&nbsp;
-                <a href="/services" class="text-blue-600">
+                <Link href="/services">
                     Prices!
-                </a>
+                </Link>
             </p>
         </div>
     </div>
@@ -166,7 +167,7 @@ import all_reviews, { type Review } from "../data/reviews";
         <div>
             <h1 class="text-4xl pb-4">Stay Connected!</h1>
             <p class="max-w-full md:max-w-[600px]">
-                Follow us over on <a href="https://www.facebook.com/groups/759089528933255" class="text-blue-600">Facebook</a> to receive up-to-date announcements, specials, and discounts! You can also peruse our published prior works in more detail and join our growing community of nail-art enthusiasts. We hope to see you there!
+                Follow us over on <Link href="https://www.facebook.com/groups/759089528933255">Facebook</Link> to receive up-to-date announcements, specials, and discounts! You can also peruse our published prior works in more detail and join our growing community of nail-art enthusiasts. We hope to see you there!
             </p>
         </div>
 

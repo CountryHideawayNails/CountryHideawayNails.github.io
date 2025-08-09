@@ -5,22 +5,16 @@ interface Props {
 };
 
 export type CarouselProps = Props;
+
+const scroll_interval = Astro.props.scroll_interval;
 ---
 
-<internal-carousel
-    data-scroll_interval={Astro.props.scroll_interval}
->
+<div>
 
-</internal-carousel>
+</div>
 
-<script>
-    class InternalCarousel extends HTMLElement {
-        constructor() {
-            super();
+<script is:inline define:vars={{ scroll_interval }}>
+    document.addEventListener("DOMContentLoaded", () => {
 
-            const scroll_interval: number = Number(this.dataset.scroll_interval);
-        }
-    }
-
-    customElements.define("internal-carousel", InternalCarousel);
+    });
 </script>

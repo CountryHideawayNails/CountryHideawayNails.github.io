@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import Link from "../content/Link.astro";
 import GoogleMapsEmbed from "../embeds/GoogleMapsEmbed.astro";
 
 import logo from "../../assets/logos/chn_logo_transparent.webp";
@@ -23,10 +24,10 @@ import chn_contact_info from "../../data/contact_info";
             </div>
             <p>42032 Coker Rd, Wanette, OK 74878</p>
             <p>Phone:&nbsp;
-                <a href={`tel:${chn_contact_info.phone}`} class="text-blue-600">{chn_contact_info.phone}</a>
+                <Link href={`tel:${chn_contact_info.phone}`}>{chn_contact_info.phone}</Link>
             </p>
             <p>Email:&nbsp;
-                <a href={`mailto:${chn_contact_info.email}`} class="text-blue-600">{chn_contact_info.email}</a>
+                <Link href={`mailto:${chn_contact_info.email}`}>{chn_contact_info.email}</Link>
             </p>
         </div>
 
