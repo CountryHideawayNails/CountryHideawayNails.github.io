@@ -1,6 +1,5 @@
 ---
 interface Props {
-    page_title: string;
     embed_link: string;
 
     pixel_width: number;
@@ -8,31 +7,16 @@ interface Props {
 };
 ---
 
-<div id="fb-root"></div>
-
-<div
-    class="fb-page ml-4 mt-4 hidden sm:block"
-    data-href={Astro.props.embed_link}
-    data-tabs="timeline"
-    data-width={Astro.props.pixel_width}
-    data-height={Astro.props.pixel_height}
-    data-small-header="false"
-    data-adapt-container-width="false"
-    data-hide-cover="false"
-    data-show-facepile="true"
->
-    <blockquote
-        cite={Astro.props.embed_link}
-        class="fb-xfbml-parse-ignore"
-    >
-        <a href={Astro.props.embed_link}>{Astro.props.page_title}</a>
-    </blockquote>
-</div>
-
-<script
-    is:inline
-    async
-    defer
-    crossorigin="anonymous"
-    src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v23.0"
-></script>
+<iframe
+    src={
+        "https://www.facebook.com/plugins/page.php?href=" +
+        `${encodeURIComponent(Astro.props.embed_link)}&tabs=timeline&width=` +
+        `${Astro.props.pixel_width}&height=${Astro.props.pixel_height}` + 
+        "&small_header=false&adapt_container_width=false&hide_cover=false&" +
+        "show_facepile=true"
+    }
+    width={Astro.props.pixel_width}
+    height={Astro.props.pixel_height}
+    allowfullscreen=""
+    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+/>
