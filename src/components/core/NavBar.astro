@@ -29,11 +29,11 @@ const nav_links: NavLink[] = [
         <div class="flex items-center cursor-pointer">
             <Image
                 src={logo}
-                class="size-16 mr-2"
+                class="size-16 mr-4"
                 alt="Nav-Bar-Logo"
                 loading="lazy"
             />
-            <h1 class="text-xl">Country Hideaway Nails</h1>
+            <h1 class="hidden sm:block sm:text-xl md:text-2xl">Country Hideaway Nails</h1>
         </div>
     </a>
 
@@ -45,8 +45,8 @@ const nav_links: NavLink[] = [
                 class={`
                     mx-1
                     ${link.href.replaceAll('/', '') === Astro.url.pathname.replaceAll('/', '')
-                        ? "text-red-600"
-                        : ""
+                        ? "text-[#85904c]"
+                        : "hover:text-[#85904c]"
                     }
                 `}
             >
@@ -59,7 +59,7 @@ const nav_links: NavLink[] = [
     <div class="sm:hidden">
         <HamburgerMenu
             vertical_position={4}
-            menu_class="flex flex-col gap-4 bg-white z-90 h-full fixed pt-8 px-8"
+            menu_class="flex flex-col gap-4 bg-[#ffebbd] z-90 h-full fixed pt-8 px-8"
         >
             {nav_links.map((link: NavLink, index: number) => (<>
                 {index > 0 && <hr />}
@@ -68,8 +68,8 @@ const nav_links: NavLink[] = [
                     href={link.href}
                     class={`
                         ${link.href.replaceAll('/', '') === Astro.url.pathname.replaceAll('/', '')
-                            ? "text-red-600"
-                            : ""
+                            ? "text-[#85904c]"
+                            : "hover:text-[#85904c]"
                         }
                     `}
                 >

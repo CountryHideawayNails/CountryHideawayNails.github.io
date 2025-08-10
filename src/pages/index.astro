@@ -17,25 +17,29 @@ import all_reviews, { type Review } from "../data/reviews";
 <NavLayout page_title={undefined}>
     <!-- * HERO SECTION * -->
     <div
-        class="flex justify-end h-[60vh] bg-cover bg-no-repeat bg-center"
+        class="h-[60vh] bg-cover bg-no-repeat bg-center flex items-end"
         style={`
             background-image: url(${bourbonnais_cabin.src});
         `}
     >
-        <div class="flex flex-col justify-center p-16 bg-white/75">
-            <h1 class="text-4xl pb-4">Welcome!</h1>
-            <h1 class="text-4xl pb-4">Country Hideaway Nails</h1>
+        <div
+            class={`
+                from-[#fff3d8] to-transparent bg-linear-to-t w-full pt-32
+                flex flex-col items-center
+            `}
+        >
+            <h1 class="text-5xl sm:text-6xl md:text-8xl pb-4 text-[#293610]">Welcome!</h1>
+            <h1 class="text-3xl sm:text-4xl md:text-6xl pb-8">Country Hideaway Nails</h1>
             <a href="/book">
-                <button class="text-lg cursor-pointer border rounded-full px-2 py-1 bg-white">
+                <button 
+                    class={`
+                        text-sm sm:text-lg cursor-pointer rounded-full px-4 py-2
+                        bg-[#7a8153] hover:bg-[#85904c] text-white
+                    `}
+                >
                     Book Appointment
                 </button>
             </a>
-            <p class="text-lg pt-2 pl-2">
-                Or see our&nbsp;
-                <Link href="/services">
-                    Prices!
-                </Link>
-            </p>
         </div>
     </div>
 
@@ -43,7 +47,7 @@ import all_reviews, { type Review } from "../data/reviews";
     <div class="flex items-center justify-around flex-wrap mt-16 mx-16">
         <Image
             src={owner_portrait}
-            class="mr-4 min-w-[50vw] md:min-w-[20vw] max-w-[500px] mb-4"
+            class="mr-4 min-w-[50vw] md:min-w-[20vw] max-w-[500px] mb-8 border-4"
             alt="Owner-Portrait"
             loading="eager"
         />
@@ -121,19 +125,19 @@ import all_reviews, { type Review } from "../data/reviews";
 
         <div 
             class={`
-                absolute hidden sm:block w-16 h-full top-0 left-16 from-white
+                absolute hidden sm:block w-16 h-full top-0 left-16 from-[#fff3d8]
                 to-transparent bg-linear-to-r z-1
             `}
         ></div>
         <div
             class={`
-                absolute hidden sm:block w-16 h-full top-0 right-16 from-white
+                absolute hidden sm:block w-16 h-full top-0 right-16 from-[#fff3d8]
                 to-transparent bg-linear-to-l z-1
             `}
         ></div>
 
-        <div class="absolute hidden sm:block w-16 h-full top-0 left-0 bg-white z-1"></div>
-        <div class="absolute hidden sm:block w-16 h-full top-0 right-0 bg-white z-1"></div>
+        <div class="absolute hidden sm:block w-16 h-full top-0 left-0 bg-[#fff3d8] z-1"></div>
+        <div class="absolute hidden sm:block w-16 h-full top-0 right-0 bg-[#fff3d8] z-1"></div>
     </div>
 
     <div class="flex gap-3 mx-auto w-fit pb-8">
@@ -171,7 +175,7 @@ import all_reviews, { type Review } from "../data/reviews";
             </p>
         </div>
 
-        <div class="hidden sm:block pt-4">
+        <div class="hidden sm:block mt-8 border-4">
             <FacebookEmbed
                 embed_link="https://www.facebook.com/dawna.riggle"
                 pixel_width={500}
