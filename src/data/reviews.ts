@@ -30,20 +30,20 @@ const all_reviews: Review[] = [
             description: "The Country Hideaway is so cute, comfortable, and private. Athena is so professional, kind, and thorough. Whatever I ask for she does her absolute best to give me what I want. Love getting pampered!"
         },
     }, {
-        image: review_b,
-        review: {
-            person: "Sharon",
-            profile_image: profile_b,
-            rating: 5,
-            description: "Great selection of colors and nail designs. Wonderful atmosphere with cozy feel to it. Very affordable and even offers discounts periodically. Can't wait to go again."
-        },
-    }, {
         image: review_c,
         review: {
             person: "Crystal",
             profile_image: profile_c,
             rating: 5,
             description: "Very nice little salon. Cute and welcoming environment. Quiet, no noise from other areas like most salons. Friendly owner."
+        },
+    }, {
+        image: review_b,
+        review: {
+            person: "Sharon",
+            profile_image: profile_b,
+            rating: 5,
+            description: "Great selection of colors and nail designs. Wonderful atmosphere with cozy feel to it. Very affordable and even offers discounts periodically. Can't wait to go again."
         },
     }, {
         image: review_d,

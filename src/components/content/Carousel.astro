@@ -2,19 +2,116 @@
 interface Props {
     /** The amount of time between scrolls, measured in milliseconds. */
     scroll_interval: number;
+
+    carousel_class?: string;
+    item_class?: string;
 };
 
 export type CarouselProps = Props;
-
-const scroll_interval = Astro.props.scroll_interval;
 ---
 
-<div>
-
+<div class={Astro.props.carousel_class}>
+    <internal-carousel
+        data-scroll_interval={Astro.props.scroll_interval}
+        data-item_class={Astro.props.item_class}
+    >
+        <div class="carousel-track flex flex-nowrap overflow-hidden">
+            <slot />
+        </div>
+    </internal-carousel>
 </div>
 
-<script is:inline define:vars={{ scroll_interval }}>
-    document.addEventListener("DOMContentLoaded", () => {
+<script>
+    class InternalCarousel extends HTMLElement {
+        private scroll_interval: number = 0;
+        private item_class?: string;
 
-    });
+        private items: Element[] = [];
+        private interval_id?: NodeJS.Timeout = undefined;
+        private track: Element | null = null;
+
+        private item_index: number = 0;
+
+        private drag_start: number = 0;
+
+        constructor() {
+            super();
+
+            this.scroll_interval = Number(this.dataset.scroll_interval);
+            this.item_class = this.dataset.item_class;
+        }
+
+        connectedCallback() {
+            if (this.scroll_interval === 0) {
+                return;
+            }
+
+            this.track = this.querySelector(".carousel-track");
+
+            if (this.items.length === 0) {
+                this.acquire_items();
+            }
+
+            this.next_slide();
+            this.interval_id = setInterval(
+                () => this.next_slide(),
+                this.scroll_interval
+            );
+        }
+
+        disconnectedCallback() {
+            clearInterval(this.interval_id);
+        }
+
+        acquire_items(): void {
+            const raw_items: Element[] = Array.from(this.track?.children ?? []);
+
+            if (raw_items.length === 0) {
+                return;
+            }
+
+            this.items = new Array(raw_items.length);
+            const item_classes: string[] = this.item_class?.split(" ") ?? [];
+
+            raw_items.forEach((raw_item: Element, index: number) => {
+                const carousel_wrapper = document.createElement("div");
+
+                carousel_wrapper.classList.add("carousel-item");
+                item_classes.forEach((item_class: string) => {
+                    carousel_wrapper.classList.add(item_class);
+                });
+
+                carousel_wrapper.appendChild(raw_item);
+                this.track?.appendChild(carousel_wrapper);
+                this.items[index] = carousel_wrapper;
+            });
+
+            this.items.forEach((item: Element) => {
+                this.track?.appendChild(item.cloneNode(true));
+            });
+        }
+
+        next_slide(): void {
+            ++this.item_index;
+            const item_width: number = this.items[0].clientWidth;
+            const track_width: number = this.track?.clientWidth ?? 0;
+
+            this.track?.scrollTo({
+                left: ((this.item_index + 0.5) * item_width) - (track_width * 0.5),
+                behavior: "smooth",
+            });
+
+            if (this.item_index > this.items.length) {
+                this.item_index = 1;
+                setTimeout(() => {
+                    this.track?.scrollTo({
+                        left: (1.5 * item_width) - (track_width * 0.5),
+                        behavior: "instant",
+                    });
+                }, 400);
+            }
+        }
+    }
+
+    customElements.define("internal-carousel", InternalCarousel);
 </script>

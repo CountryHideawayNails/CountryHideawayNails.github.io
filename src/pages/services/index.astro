@@ -1,11 +1,10 @@
 ---
-import { Image } from "astro:assets";
 import NavLayout from "../../layouts/NavLayout.astro";
 
-import cash from "../../assets/icons/cash.svg";
-import cashapp from "../../assets/icons/cashapp.svg";
-import credit_card from "../../assets/icons/credit_card.svg";
-import venmo from "../../assets/icons/venmo.svg";
+import Cash from "../../assets/icons/Cash.astro";
+import CashApp from "../../assets/icons/CashApp.astro";
+import CreditCard from "../../assets/icons/CreditCard.astro";
+import Venmo from "../../assets/icons/Venmo.astro";
 
 import all_service_groups, { type Service, type ServiceGroup } from "../../data/services";
 ---
@@ -59,33 +58,13 @@ import all_service_groups, { type Service, type ServiceGroup } from "../../data/
 
             <p>Now Accepting</p>
             <div class="flex gap-2">
-                <Image
-                    src={cash}
-                    class="size-8"
-                    alt="Cash-Accepted"
-                    loading="eager"
-                />
+                <Cash width={38} height={38} />
 
-                <Image
-                    src={credit_card}
-                    class="size-8"
-                    alt="Credit-Debit-Accepted"
-                    loading="eager"
-                />
+                <CreditCard width={38} height={38} />
 
-                <Image
-                    src={cashapp}
-                    class="size-8"
-                    alt="Cashapp-Accepted"
-                    loading="eager"
-                />
+                <CashApp width={38} height={38} />
 
-                <Image
-                    src={venmo}
-                    class="size-8"
-                    alt="Venmo-Accepted"
-                    loading="eager"
-                />
+                <Venmo width={38} height={38} />
             </div>
         </div>
     </div>

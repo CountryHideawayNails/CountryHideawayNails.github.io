@@ -6,10 +6,17 @@ import chn_contact_info from "../../data/contact_info";
 ---
 
 <NavLayout page_title="Book">
-    <div class="mx-16 my-8 border-2 rounded-xl w-fit text-center px-8 py-4 bg-[#ffebbd]">
-        <h1 class="text-4xl pb-4">Notice!</h1>
-        <p>
-            Online booking services are currently under construction. To set an appointment, please call at the number: <Link href={`tel:${chn_contact_info.phone}`}>{chn_contact_info.phone}</Link>. We apologize for any inconvenience.
-        </p>
+    <div class="mx-16 my-8">
+        <div
+            class={`
+                mx-auto border-2 rounded-xl w-fit text-center px-8
+                py-4 bg-[#ffebbd]
+            `}
+        >
+            <h1 class="text-4xl pb-4">Notice!</h1>
+            <p>
+                Online booking services are currently under construction. To set an appointment, please call at the number: <Link href={`tel:${chn_contact_info.phone}`}>{chn_contact_info.phone}</Link>. We apologize for any inconvenience.
+            </p>
+        </div>
     </div>
 </NavLayout>
