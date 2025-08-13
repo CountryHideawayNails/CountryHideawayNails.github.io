@@ -1,14 +1,12 @@
 ---
 import NavLayout from "../../layouts/NavLayout.astro";
 
+import ServiceGroupLists from "../../components/dynamic/ServiceGroupLists";
+
 import Cash from "../../assets/icons/Cash.astro";
 import CashApp from "../../assets/icons/CashApp.astro";
 import CreditCard from "../../assets/icons/CreditCard.astro";
 import Venmo from "../../assets/icons/Venmo.astro";
-
-import pullServices, { type Service, type ServiceGroup } from "../../data/services";
-
-const services: ServiceGroup[] = await pullServices();
 ---
 
 <NavLayout page_title="Services">
@@ -20,27 +18,7 @@ const services: ServiceGroup[] = await pullServices();
     
     <!-- * SERVICE GROUPS * -->
     <div class="mx-16 flex gap-8 justify-around flex-wrap">
-        {services.map((group: ServiceGroup) => (
-            <div class="border rounded-2xl px-8 py-4 max-w-[500px] w-[500px] bg-[#ffebbd]">
-                <h1 class="text-xl sm:text-2xl lg:text-4xl">{group.title}</h1>
-                <hr class="pb-2" />
-                {group.services.map((service: Service) => (
-                    <>
-                        <div class="flex pb-1">
-                            <p class="font-bold">{service.title}</p>
-                            <div class="flex-grow border-b-2 border-dotted min-w-[20px]"></div>
-                            <p>{service.cost}</p>
-                        </div>
-                        {service.description === undefined
-                            ? <></>
-                            : <div>
-                                <p class="ml-8">*&nbsp;{service.description}</p>
-                            </div>
-                        }
-                    </>
-                ))}
-            </div>
-        ))}
+        <ServiceGroupLists client:load />
     </div>
 
     <!-- * CALL TO ACTION * -->
