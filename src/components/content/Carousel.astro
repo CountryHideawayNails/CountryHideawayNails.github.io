@@ -10,106 +10,164 @@ interface Props {
 export type CarouselProps = Props;
 ---
 
-<div class={Astro.props.carousel_class}>
-    <internal-carousel
-        data-scroll_interval={Astro.props.scroll_interval}
-        data-item_class={Astro.props.item_class}
+<internal-carousel
+    data-scroll_interval={Astro.props.scroll_interval}
+    data-item_class={Astro.props.item_class}
+    class={Astro.props.carousel_class}
+>
+    <button
+        class={`
+            left-carousel-btn mr-4 bg-white my-auto rounded-full
+            size-12 shadow cursor-pointer text-2xl hover:shadow-md/25
+            hover:scale-[1.05] transition duration-150 ease-in-out
+            flex-shrink-0
+        `}
     >
-        <div class="carousel-track flex flex-nowrap overflow-hidden">
-            <slot />
-        </div>
-    </internal-carousel>
-</div>
+        {"<"}
+    </button>
+
+    <div
+        class={`
+            carousel-track flex flex-nowrap overflow-x-auto
+            scroll-smooth snap-x snap-mandatory
+        `}
+        style="scrollbar-width: none;"
+    >
+        <slot />
+    </div>
+
+    <button
+        class={`
+            right-carousel-btn ml-4 bg-white my-auto rounded-full
+            size-12 shadow cursor-pointer text-2xl hover:shadow-md/25
+            hover:scale-[1.05] transition duration-150 ease-in-out
+            flex-shrink-0
+        `}
+    >
+        {">"}
+    </button>
+</internal-carousel>
 
 <script>
     class InternalCarousel extends HTMLElement {
-        private scroll_interval: number = 0;
-        private item_class?: string;
+        private is_initialized: boolean = false;
 
-        private items: Element[] = [];
+        private scroll_interval: number = 0;
+        private should_scroll: boolean = false;
+
+        private item_count: number = 0;
         private interval_id?: NodeJS.Timeout = undefined;
+
+        private first_item: Element | null = null;
         private track: Element | null = null;
 
         private item_index: number = 0;
-
-        private drag_start: number = 0;
 
         constructor() {
             super();
 
             this.scroll_interval = Number(this.dataset.scroll_interval);
-            this.item_class = this.dataset.item_class;
+            this.should_scroll = this.scroll_interval > 0;
         }
 
-        connectedCallback() {
-            if (this.scroll_interval === 0) {
-                return;
+        connectedCallback(): void {
+            if (!this.is_initialized) {
+                this.accquireItems();
+
+                this.querySelector(".left-carousel-btn")?.addEventListener(
+                    "click",
+                    () => {
+                        this.advanceCarousel(-1);
+                        clearInterval(this.interval_id);
+                        this.should_scroll = false;
+                    }
+                );
+
+                this.querySelector(".right-carousel-btn")?.addEventListener(
+                    "click",
+                    () => {
+                        this.advanceCarousel(1);
+                        clearInterval(this.interval_id);
+                        this.should_scroll = false;
+                    }
+                );
+
+                this.addEventListener("touchmove", () => {
+                    clearInterval(this.interval_id);
+                    this.should_scroll = false;
+                });
+
+                this.is_initialized = true;
             }
 
-            this.track = this.querySelector(".carousel-track");
-
-            if (this.items.length === 0) {
-                this.acquire_items();
+            if (this.should_scroll) {
+                this.interval_id = setInterval(
+                    () => this.advanceCarousel(1),
+                    this.scroll_interval
+                );
             }
-
-            this.next_slide();
-            this.interval_id = setInterval(
-                () => this.next_slide(),
-                this.scroll_interval
-            );
         }
 
-        disconnectedCallback() {
+        disconnectedCallback(): void {
             clearInterval(this.interval_id);
         }
 
-        acquire_items(): void {
-            const raw_items: Element[] = Array.from(this.track?.children ?? []);
+        accquireItems(): void {
+            this.track = this.querySelector(".carousel-track");
 
-            if (raw_items.length === 0) {
+            if (this.track === null) {
+                this.should_scroll = false;
                 return;
             }
 
-            this.items = new Array(raw_items.length);
-            const item_classes: string[] = this.item_class?.split(" ") ?? [];
+            const raw_items: Element[] = Array.from(this.track?.children ?? []);
+
+            if (raw_items.length === 0) {
+                this.should_scroll = false;
+                return;
+            }
+
+            this.item_count = raw_items.length;
+
+            const item_classes: string[] = (this.dataset.item_class ?? "").split(" ");
 
             raw_items.forEach((raw_item: Element, index: number) => {
-                const carousel_wrapper = document.createElement("div");
+                const item_wrapper = document.createElement("div");
 
-                carousel_wrapper.classList.add("carousel-item");
-                item_classes.forEach((item_class: string) => {
-                    carousel_wrapper.classList.add(item_class);
-                });
+                item_wrapper.classList.add("carousel-item");
+                item_classes.forEach((item_class: string) => (
+                    item_wrapper.classList.add(item_class)
+                ));
 
-                carousel_wrapper.appendChild(raw_item);
-                this.track?.appendChild(carousel_wrapper);
-                this.items[index] = carousel_wrapper;
-            });
+                item_wrapper.style.scrollSnapAlign = "center";
 
-            this.items.forEach((item: Element) => {
-                this.track?.appendChild(item.cloneNode(true));
+                item_wrapper.appendChild(raw_item);
+                this.track?.appendChild(item_wrapper);
+
+                if (index === 0) {
+                    this.first_item = item_wrapper;
+                }
             });
         }
 
-        next_slide(): void {
-            ++this.item_index;
-            const item_width: number = this.items[0].clientWidth;
-            const track_width: number = this.track?.clientWidth ?? 0;
+        advanceCarousel(delta: number): void {
+            if (this.track === null || this.first_item === null) {
+                return;
+            }
 
-            this.track?.scrollTo({
+            this.item_index = (this.item_index + delta) % this.item_count;
+
+            if (this.item_index < 0) {
+                this.item_index += this.item_count;
+            }
+
+            const item_width: number = this.first_item.clientWidth;
+            const track_width: number = this.track.clientWidth;
+
+            this.track.scrollTo({
                 left: ((this.item_index + 0.5) * item_width) - (track_width * 0.5),
                 behavior: "smooth",
             });
-
-            if (this.item_index > this.items.length) {
-                this.item_index = 1;
-                setTimeout(() => {
-                    this.track?.scrollTo({
-                        left: (1.5 * item_width) - (track_width * 0.5),
-                        behavior: "instant",
-                    });
-                }, 400);
-            }
         }
     }
 

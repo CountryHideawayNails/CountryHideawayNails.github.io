@@ -10,7 +10,7 @@ import chn_contact_info from "../../data/contact_info";
 
 <footer class="bg-[#FFE6A7] px-16">
     <!-- * MAIN CONTENT * -->
-    <div class="flex flex-wrap items-center justify-around gap-8 mt-16 py-8">
+    <div class="flex flex-wrap items-center justify-around gap-8 mt-32 py-8">
         <!-- * CONTACT INFO. & SOCIALS * -->
         <div>
             <div class="flex items-center">
@@ -35,23 +35,24 @@ import chn_contact_info from "../../data/contact_info";
         <table>
             <tbody>
                 <tr>
-                    <td colspan={2} class="text-xl pb-2 text-center text-[#293610] font-bold">
+                    <td colspan={2} class="text-xl border-b-1 text-center text-[#293610] font-bold">
                         Hours
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-right">Monday - Friday:&nbsp;</td>
-                    <td>9am - 7pm</td>
+                    <td class="text-right font-bold">Monday - Friday:&nbsp;</td>
+                    <td>&nbsp;&nbsp;9am - 7pm</td>
                 </tr>
+                <tr><td class="h-1"></td></tr>
                 <tr>
-                    <td class="text-right">Saturday:&nbsp;</td>
-                    <td>9am - 1pm</td>
+                    <td class="text-right font-bold">Saturday:&nbsp;</td>
+                    <td>&nbsp;&nbsp;9am - 1pm</td>
                 </tr>
             </tbody>
         </table>
 
         <!-- * GOOGLE MAPS EMBED * -->
-        <div class="w-[225px] h-[125px] sm:w-[450px] sm:h-[250px] border-4">
+        <div class="w-[225px] h-[125px] sm:w-[450px] sm:h-[250px] shadow border">
             <GoogleMapsEmbed
                 embed_link={
                     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3" +
