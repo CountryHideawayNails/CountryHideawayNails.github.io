@@ -5,7 +5,7 @@ export interface ContactInfo {
 
 const chn_contact_info: ContactInfo = {
     phone: "(580) 235-7999",
-    email: "athenadr71@gmail.com",
+    email: "countryhideawaynails@gmail.com",
 };
 
 export default chn_contact_info;

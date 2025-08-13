@@ -6,7 +6,9 @@ import CashApp from "../../assets/icons/CashApp.astro";
 import CreditCard from "../../assets/icons/CreditCard.astro";
 import Venmo from "../../assets/icons/Venmo.astro";
 
-import all_service_groups, { type Service, type ServiceGroup } from "../../data/services";
+import pullServices, { type Service, type ServiceGroup } from "../../data/services";
+
+const services: ServiceGroup[] = await pullServices();
 ---
 
 <NavLayout page_title="Services">
@@ -18,7 +20,7 @@ import all_service_groups, { type Service, type ServiceGroup } from "../../data/
     
     <!-- * SERVICE GROUPS * -->
     <div class="mx-16 flex gap-8 justify-around flex-wrap">
-        {all_service_groups.map((group: ServiceGroup) => (
+        {services.map((group: ServiceGroup) => (
             <div class="border rounded-2xl px-8 py-4 max-w-[500px] w-[500px] bg-[#ffebbd]">
                 <h1 class="text-xl sm:text-2xl lg:text-4xl">{group.title}</h1>
                 <hr class="pb-2" />

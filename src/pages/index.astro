@@ -45,7 +45,7 @@ import all_reviews, { type Review } from "../data/reviews";
 
     <!-- * OWNER & BUSINESS INTRODUCTION * -->
     <div class="flex items-center justify-around flex-wrap mt-32 mx-16">
-        <div class="relative min-w-[50vw] md:min-w-[20vw] max-w-[550px] mr-4 mb-8">
+        <div class="relative min-w-[50vw] md:min-w-[20vw] max-w-[550px] mr-15 mb-16">
             <Image
                 src={owner_portrait}
                 class={`
@@ -58,7 +58,7 @@ import all_reviews, { type Review } from "../data/reviews";
             <Image
                 src={business_location}
                 class={`
-                    mr-4 w-[40%] absolute -bottom-10 -right-[25%]
+                    mr-4 w-[40%] absolute -bottom-10 -right-15
                     mb-8 rotate-5 shadow-lg/25 border-2
                 `}
                 alt="Owner-Portrait"
@@ -79,7 +79,7 @@ import all_reviews, { type Review } from "../data/reviews";
     </div>
 
     <!-- * PRIOR WORK CAROUSEL * -->
-    <div class="mx-16">
+    <div class="mx-2 sm:mx-16">
         <Carousel
             scroll_interval={3000}
             item_class="flex-shrink-0"
@@ -128,9 +128,9 @@ import all_reviews, { type Review } from "../data/reviews";
             </p>
         </div>
 
-        <div class="hidden sm:block mt-8 border-black shadow">
+        <div class="hidden sm:block mt-8 border-black shadow bg-white">
             <FacebookEmbed
-                embed_link="https://www.facebook.com/dawna.riggle"
+                embed_link="https://www.facebook.com/profile.php?id=61579387679192"
                 pixel_width={500}
                 pixel_height={400}
             />

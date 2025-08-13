@@ -12,24 +12,53 @@ import chn_contact_info from "../../data/contact_info";
     <!-- * MAIN CONTENT * -->
     <div class="flex flex-wrap items-center justify-around gap-8 mt-32 py-8">
         <!-- * CONTACT INFO. & SOCIALS * -->
-        <div>
-            <div class="flex items-center">
-                <Image
-                    src={logo}
-                    class="size-14 mr-2"
-                    alt="Footer-Logo"
-                    loading="lazy"
-                />
-                <h1 class="text-lg">Country Hideaway Nails</h1>
-            </div>
-            <p>42032 Coker Rd, Wanette, OK 74878</p>
-            <p>Phone:&nbsp;
-                <Link href={`tel:${chn_contact_info.phone}`}>{chn_contact_info.phone}</Link>
-            </p>
-            <p>Email:&nbsp;
-                <Link href={`mailto:${chn_contact_info.email}`}>{chn_contact_info.email}</Link>
-            </p>
-        </div>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <Image
+                            src={logo}
+                            class="size-14 mr-2"
+                            alt="Footer-Logo"
+                            loading="lazy"
+                        />
+                    </td>
+                    <td>
+                        <h1 class="sm:text-lg text-md">Country Hideaway Nails</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan={2}>
+                        42032 Coker Rd, Wanette, OK 74878
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Phone:
+                    </td>
+                    <td>
+                        <Link
+                            href={`tel:${chn_contact_info.phone}`}
+                        >
+                            {chn_contact_info.phone}
+                        </Link>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Email:
+                    </td>
+                    <td class="max-w-[40vw]">
+                        <Link
+                            href={`mailto:${chn_contact_info.email}`}
+                            class="truncate block"
+                        >
+                            {chn_contact_info.email}
+                        </Link>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
         <!-- * HOURS OF OPERATION * -->
         <table>
