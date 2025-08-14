@@ -4,6 +4,8 @@ import HamburgerMenu from "../content/HamburgerMenu.astro";
 
 import logo from "../../assets/logos/chn_logo_transparent.webp";
 
+import book_url from "../../data/bookings";
+
 interface NavLink {
     title: string;
     href: string;
@@ -18,7 +20,7 @@ const nav_links: NavLink[] = [
         href: "/services",
     }, {
         title: "Book",
-        href: "/book",
+        href: book_url,
     },
 ];
 ---

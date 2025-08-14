@@ -7,6 +7,8 @@ import Cash from "../../assets/icons/Cash.astro";
 import CashApp from "../../assets/icons/CashApp.astro";
 import CreditCard from "../../assets/icons/CreditCard.astro";
 import Venmo from "../../assets/icons/Venmo.astro";
+
+import book_url from "../../data/bookings";
 ---
 
 <NavLayout page_title="Services">
@@ -25,7 +27,7 @@ import Venmo from "../../assets/icons/Venmo.astro";
     <div class="mx-16 mt-32 flex items-center justify-center">
         <div class="flex flex-col items-center gap-2">
             <h1 class="text-2xl lg:text-3xl pb-2">Like What You See?</h1>
-            <a href="/book">
+            <a href={book_url}>
                 <button 
                     class={`
                         text-sm sm:text-lg cursor-pointer rounded-full px-4 py-2
