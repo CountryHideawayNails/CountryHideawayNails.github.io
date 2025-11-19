@@ -1,9 +1,160 @@
 ---
+import "../../styles/nav_layout.css";
+import Image from "astro/components/Image.astro";
+import contact_info from "../../config/contact_info";
+import translate from "../../utils/content/translation";
+import chn_white from "../../assets/logos/chn_white.webp";
+import GoogleMapsEmbed from "../embeds/GoogleMapsEmbed.astro";
+import nav_links, { type NavLink } from "../../config/nav_links";
 import RootLayout, { type RootLayoutProps } from "./RootLayout.astro";
 
 interface Props extends RootLayoutProps {};
+
+const left_links: NavLink[] = [];
+const right_links: NavLink[] = [];
+
+let idx: number = 0;
+for (; idx < nav_links.length * 0.5; ++idx) {
+    left_links.push(nav_links[idx]);
+}
+
+for (; idx < nav_links.length; ++idx) {
+    right_links.push(nav_links[idx]);
+}
+
+function isPageLink(href: string): boolean {
+    return (
+        `${Astro.props.language}${href}`.replaceAll(/[/\\]/g, "") ===
+        Astro.url.pathname.replaceAll(/[/\\]/g, "")
+    )
+}
 ---
 
 <RootLayout {...Astro.props as RootLayoutProps}>
+    <!-- * Navigation Bar * -->
+
+    <nav class="bg-chn-black nav-bar">
+        <div class="nav-link-container">
+            {left_links.map((link) => (
+                <a
+                    class={`nav-bar-link ${isPageLink(link.href) ? "text-bright weight-bold" : "text-light"}`}
+                    href={link.is_external
+                        ? link.href
+                        : `/${Astro.props.language}${link.href}`
+                    }
+                >
+                    {translate(Astro.props.language, "common", link.text_key)}
+                </a>
+            ))}
+        </div>
+
+        <Image
+            src={chn_white}
+            alt="CHN-White-Logo-Nav"
+            class="nav-bar-logo"
+            loading="eager"
+        />
+
+        <div class="nav-link-container">
+            {right_links.map((link) => (
+                <a
+                    class={`nav-bar-link ${isPageLink(link.href) ? "text-bright weight-bold" : "text-light"}`}
+                    href={link.is_external
+                        ? link.href
+                        : `/${Astro.props.language}${link.href}`
+                    }
+                >
+                    {translate(Astro.props.language, "common", link.text_key)}
+                </a>
+            ))}
+        </div>
+    </nav>
+
+    <!-- * Page Content Slot * -->
+
     <slot />
+
+    <!-- * Page Footer * -->
+    
+    <footer class="bg-chn-brown footer-bar">
+        <div class="footer-bar-info-section">
+            <div class="footer-bar-logo-container">
+                <Image
+                    src={chn_white}
+                    alt="CHN-White-Logo-Footer"
+                    class="footer-bar-logo"
+                    loading="lazy"
+                />
+
+                <span class="text-bright font-la-belle-aurore text-lg">
+                    {translate(Astro.props.language, "common", "company_name")}
+                </span>
+            </div>
+
+            <div>
+                <span class="text-bright">
+                    {contact_info.address}
+                </span>
+
+                <div>
+                    <span class="text-bright">
+                        {translate(Astro.props.language, "common", "phone_label")}
+                    </span>
+                    <a class="hyperlink" href={contact_info.phone_href}>
+                        {contact_info.phone_number}
+                    </a>
+                </div>
+
+                <div>
+                    <span class="text-bright">
+                        {translate(Astro.props.language, "common", "email_label")}
+                    </span>
+                    <a class="hyperlink" href={contact_info.email_href}>
+                        {contact_info.email}
+                    </a>
+                </div>
+            </div>
+
+            <div class="text-light">
+                <span class="text-bright">
+                    {translate(Astro.props.language, "common", "business_hours")}
+                </span>
+
+                <div class="footer-business-hours-container">
+                    <span>
+                        {translate(Astro.props.language, "common", "weekday_label")}
+                    </span>
+                    <span class="footer-business-hours-dotted-line" />
+                    <span>
+                        {translate(Astro.props.language, "common", "weekday_hours")}
+                    </span>
+                </div>
+
+                <div class="footer-business-hours-container">
+                    <span>
+                        {translate(Astro.props.language, "common", "saturday_label")}
+                    </span>
+                    <span class="footer-business-hours-dotted-line" />
+                    <span>
+                        {translate(Astro.props.language, "common", "saturday_hours")}
+                    </span>
+                </div>
+
+                <div class="footer-business-hours-container">
+                    <span>
+                        {translate(Astro.props.language, "common", "sunday_label")}
+                    </span>
+                    <span class="footer-business-hours-dotted-line" />
+                    <span>
+                        {translate(Astro.props.language, "common", "sunday_hours")}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <GoogleMapsEmbed
+            class="footer-google-maps-embed"
+            embed_link={contact_info.address_google_maps_href}
+        />
+    </footer>
 </RootLayout>

@@ -1,3 +1,23 @@
 {
-    "site_description": "The official website for Country Hideaway Nail salon."
+    "company_name": "Country Hideaway Nails",
+    "site_description": "The official website for Country Hideaway Nail salon.",
+
+    "home_link": "Home",
+    "services_link": "Services",
+    "book_link": "Book",
+    "facebook_link": "Facebook",
+
+    "phone_label": "Phone:",
+    "email_label": "Email:",
+
+    "business_hours": "Business Hours",
+    
+    "weekday_label": "Mon - Fri",
+    "weekday_hours": "9am - 7pm",
+
+    "saturday_label": "Sat",
+    "saturday_hours": "9am - 1pm",
+    
+    "sunday_label": "Sun",
+    "sunday_hours": "Closed"
 }

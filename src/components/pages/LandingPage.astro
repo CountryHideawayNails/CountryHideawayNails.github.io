@@ -1,5 +1,12 @@
 ---
+import "../../styles/home_page.css";
+import Image from "astro/components/Image.astro";
+import cabin from "../../assets/images/cabin.webp";
+import owner from "../../assets/images/owner.webp";
 import NavLayout from "../layouts/NavLayout.astro";
+import translate from "../../utils/content/translation";
+import FacebookEmbed from "../embeds/FacebookEmbed.astro";
+import paper_tear from "../../assets/images/paper_tear.webp";
 import type { Languages } from "../../config/language_config";
 
 interface Props {
@@ -8,5 +15,109 @@ interface Props {
 ---
 
 <NavLayout language={Astro.props.language}>
-    <h1>LANDING</h1>
+    <!-- * Hero Section * -->
+
+    <section class="hero-section" style={`--hero-image: url("${cabin.src}");`}>
+        <h1 class="text-bright text-shadow weight-normal text-2xl font-instrument-serif text-center">
+            {translate(Astro.props.language, "home_page", "hero_main_tag_line")}
+        </h1>
+
+        <h2 class="text-bright text-shadow weight-normal text-xl font-la-belle-aurore text-center">
+            {translate(Astro.props.language, "home_page", "hero_company_name")}
+        </h2>
+
+        <div class="hero-buttons-container">
+            <a
+                class="chn-black-button drop-shadow"
+                href="https://book.squareup.com/appointments/42l7of3kami9z2/location/LQA98RSMCZJZM/services"
+            >
+                {translate(Astro.props.language, "home_page", "hero_book_call_to_act")}
+            </a>
+
+            <a
+                class="chn-green-button drop-shadow"
+                href={`/${Astro.props.language}/services`}
+            >
+                {translate(Astro.props.language, "home_page", "hero_prices_call_to_act")}
+            </a>
+        </div>
+
+        <div
+            class="paper-tear"
+            style={`--paper-tear-image: url("${paper_tear.src}"); --paper-tear-color: var(--color-chn-tan);`}
+        />
+    </section>
+
+    <!-- * About Section * -->
+
+    <section class="home-flex-container">
+        <Image
+            src={owner}
+            alt="Owner-Portrait"
+            class="about-owner-portrait"
+        />
+
+        <div class="home-paragraph-block">
+            <h1 class="text-dark weight-normal font-la-belle-aurore text-lg">
+                {translate(Astro.props.language, "home_page", "about_title")}
+            </h1>
+
+            <p>
+                {translate(Astro.props.language, "home_page", "about_paragraph")}
+            </p>
+        </div>
+    </section>
+
+    <!-- * Reviews Section * -->
+
+    <section class="bg-chn-brown reviews-section">
+        <h1 class="text-bright weight-normal font-instrument-serif text-2xl">
+            {translate(Astro.props.language, "home_page", "review_title")}
+        </h1>
+
+        <div>
+            
+        </div>
+
+        <div
+            class="paper-tear"
+            style={`--paper-tear-image: url("${paper_tear.src}"); --paper-tear-color: var(--color-chn-black);`}
+        />
+    </section>
+
+    <!-- * Community Section * -->
+
+    <section class="bg-chn-black home-flex-container">
+        <div class="home-paragraph-block">
+            <h1 class="text-bright weight-normal font-la-belle-aurore text-lg">
+                {translate(Astro.props.language, "home_page", "community_title")}
+            </h1>
+
+            <p class="text-light">
+                {translate(Astro.props.language, "home_page", "community_paragraph_link_prefix")}
+                <a
+                    class="hyperlink"
+                    href="https://www.facebook.com/groups/759089528933255"
+                >
+                    {translate(Astro.props.language, "home_page", "community_paragraph_link")}
+                </a>
+                {translate(Astro.props.language, "home_page", "community_paragraph_link_suffix")}
+            </p>
+        </div>
+
+        <FacebookEmbed
+            class="home-facebook-embed"
+            embed_link="https://www.facebook.com/profile.php?id=61579387679192"
+            pixel_width={500}
+            pixel_height={400}
+        />
+    </section>
+
+    <!-- * Gallery Section * -->
+
+    <section>
+        <h1 class="text-dark weight-normal font-instrument-serif text-2xl">
+            {translate(Astro.props.language, "home_page", "gallery_title")}
+        </h1>
+    </section>
 </NavLayout>
