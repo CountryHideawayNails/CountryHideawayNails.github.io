@@ -47,7 +47,7 @@
 
 .home-large-title {
     width: fit-content;
-    margin: 0 auto 2rem auto;
+    margin: 0 auto 3rem auto;
     text-align: center;
 }
 
@@ -79,7 +79,7 @@
     padding-top: 4rem;
     padding-left: 8rem;
     padding-right: 8rem;
-    padding-bottom: calc(4rem + 50px);
+    padding-bottom: calc(6rem + 50px);
 }
 
 .review-cards-container {
