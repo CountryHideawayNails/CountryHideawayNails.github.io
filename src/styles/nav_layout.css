@@ -27,11 +27,14 @@
 }
 
 .nav-hamburger-button {
+    position: relative;
+
     display: none;
     flex-direction: column;
     gap: 0.5rem;
 
     width: 2.5rem;
+    z-index: 60;
 
     padding: 0.25rem;
     margin-top: auto;
@@ -57,6 +60,26 @@
     border-radius: 0.125rem;
 
     transition: background-color 150ms ease-in-out 0s;
+    transition: transform 150ms ease-in-out 0s;
+}
+
+.nav-hamburger-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 55;
+
+    width: fit-content;
+    height: 100vh;
+
+    padding: 6rem 6rem 4rem 2rem;
+
+    transition: transform 150ms ease-in-out 0s;
+    transform: translateX(100%);
 }
 
 .footer-bar {

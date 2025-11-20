@@ -69,11 +69,25 @@ function isPageLink(href: string): boolean {
             ))}
         </div>
 
-        <button class="nav-hamburger-button">
-            <div class="nav-hamburger-bar" />
-            <div class="nav-hamburger-bar" />
-            <div class="nav-hamburger-bar" />
+        <button id="nav-hamburger-button" class="nav-hamburger-button">
+            <div id="nav-hamburger-bar-1" class="nav-hamburger-bar" />
+            <div id="nav-hamburger-bar-2" class="nav-hamburger-bar" />
+            <div id="nav-hamburger-bar-3" class="nav-hamburger-bar" />
         </button>
+
+        <div id="nav-hamburger-menu" class="nav-hamburger-menu bg-chn-black">
+            {nav_links.map((link) => (
+                <a
+                    class={`nav-bar-link ${isPageLink(link.href) ? "text-bright weight-bold" : "text-light"}`}
+                    href={link.is_external
+                        ? link.href
+                        : `/${Astro.props.language}${link.href}`
+                    }
+                >
+                    {translate(Astro.props.language, "common", link.text_key)}
+                </a>
+            ))}
+        </div>
     </nav>
 
     <!-- * Page Content Slot * -->
@@ -163,4 +177,6 @@ function isPageLink(href: string): boolean {
             embed_link={contact_info.address_google_maps_href}
         />
     </footer>
+
+    <script src="../../scripts/nav_layout.ts" />
 </RootLayout>
