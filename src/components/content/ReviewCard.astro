@@ -1,0 +1,46 @@
+---
+import "../../styles/review_card.css";
+import Image from 'astro/components/Image.astro';
+import star_icon from "../../assets/icons/star.svg";
+import person_icon from "../../assets/icons/person.svg";
+import quote_icon from "../../assets/icons/quotations.svg";
+
+interface Props {
+    customer_name: string;
+    review_text: string;
+    star_count: 0 | 1 | 2 | 3 | 4 | 5;  
+    color: string;
+};
+export type ReviewCardProps = Props;
+---
+
+<div class="review-card bg-chn-black" style={`--review-card-color: ${Astro.props.color};`}>
+    <div class="review-card-title-container">
+        <div
+            class="review-person review-colored-icon"
+            style={`--review-colored-icon-image: url(${person_icon.src});`}
+        />
+
+        <span class="font-la-belle-aurore text-bright text-lg">
+            {Astro.props.customer_name}
+        </span>
+
+        <div
+            class="review-quotation review-colored-icon"
+            style={`--review-colored-icon-image: url(${quote_icon.src});`}
+        />
+    </div>
+
+    <p class="text-light review-text">
+        {Astro.props.review_text}
+    </p>
+
+    <div class="review-stars-container">
+        {Array.from({ length: Astro.props.star_count }).map((_, index) => (
+            <div
+                class="review-star review-colored-icon"
+                style={`--review-colored-icon-image: url(${star_icon.src});`}
+            />
+        ))}
+    </div>
+</div>

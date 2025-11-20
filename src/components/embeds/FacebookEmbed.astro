@@ -8,15 +8,19 @@ interface Props {
 
     pixel_width: number;
     pixel_height: number;
+
+    loading?: "lazy" | "eager";
 };
 ---
 
 <div id={Astro.props.id} class={Astro.props.class} style={Astro.props.style}>
     <iframe
+        title="Facebook-Embed"
         src={`https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(Astro.props.embed_link)}&tabs=timeline&width=${Astro.props.pixel_width}&height=${Astro.props.pixel_height}&small_header=false&adapt_container_width=false&hide_cover=false&show_facepile=true`}
         width={Astro.props.pixel_width}
         height={Astro.props.pixel_height}
         allowfullscreen=""
         allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+        loading={Astro.props.loading || "lazy"}
     />
 </div>

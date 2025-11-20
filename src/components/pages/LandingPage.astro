@@ -7,11 +7,37 @@ import NavLayout from "../layouts/NavLayout.astro";
 import translate from "../../utils/content/translation";
 import FacebookEmbed from "../embeds/FacebookEmbed.astro";
 import paper_tear from "../../assets/images/paper_tear.webp";
+import external_links from "../../config/external_links.json";
 import type { Languages } from "../../config/language_config";
+import ReviewCard, { type ReviewCardProps } from "../content/ReviewCard.astro";
 
 interface Props {
     language: Languages;
 };
+
+const gallery_images: Record<string, { default: ImageMetadata }> = import.meta.glob<{ default: ImageMetadata }>(
+    "../../assets/gallery/*.{png,jpg,jpeg,webp,svg}", {
+    eager: true
+});
+
+const reviews: ReviewCardProps[] = [
+    {
+        customer_name: "Angela L.",
+        review_text: translate(Astro.props.language, "home_page", "review_text_1"),
+        star_count: 5,
+        color: "#f2597b"
+    }, {
+        customer_name: "Crystal F.",
+        review_text: translate(Astro.props.language, "home_page", "review_text_2"),
+        star_count: 5,
+        color: "#23bfd4"
+    }, {
+        customer_name: "Sharon R.",
+        review_text: translate(Astro.props.language, "home_page", "review_text_3"),
+        star_count: 5,
+        color: "#05df72"
+    }
+];
 ---
 
 <NavLayout language={Astro.props.language}>
@@ -29,7 +55,7 @@ interface Props {
         <div class="hero-buttons-container">
             <a
                 class="chn-black-button drop-shadow"
-                href="https://book.squareup.com/appointments/42l7of3kami9z2/location/LQA98RSMCZJZM/services"
+                href={external_links.booking}
             >
                 {translate(Astro.props.language, "home_page", "hero_book_call_to_act")}
             </a>
@@ -71,12 +97,14 @@ interface Props {
     <!-- * Reviews Section * -->
 
     <section class="bg-chn-brown reviews-section">
-        <h1 class="text-bright weight-normal font-instrument-serif text-2xl">
+        <h1 class="text-bright weight-normal font-instrument-serif text-2xl home-large-title">
             {translate(Astro.props.language, "home_page", "review_title")}
         </h1>
 
-        <div>
-            
+        <div class="review-cards-container">
+            {reviews.map((review) => (
+                <ReviewCard {...review} />
+            ))}
         </div>
 
         <div
@@ -97,7 +125,7 @@ interface Props {
                 {translate(Astro.props.language, "home_page", "community_paragraph_link_prefix")}
                 <a
                     class="hyperlink"
-                    href="https://www.facebook.com/groups/759089528933255"
+                    href={external_links.facebook}
                 >
                     {translate(Astro.props.language, "home_page", "community_paragraph_link")}
                 </a>
@@ -107,7 +135,7 @@ interface Props {
 
         <FacebookEmbed
             class="home-facebook-embed"
-            embed_link="https://www.facebook.com/profile.php?id=61579387679192"
+            embed_link={external_links.facebook_group}
             pixel_width={500}
             pixel_height={400}
         />
@@ -115,9 +143,21 @@ interface Props {
 
     <!-- * Gallery Section * -->
 
-    <section>
-        <h1 class="text-dark weight-normal font-instrument-serif text-2xl">
+    <section class="gallery-section">
+        <h1 class="text-dark weight-normal font-instrument-serif text-2xl home-large-title">
             {translate(Astro.props.language, "home_page", "gallery_title")}
         </h1>
+
+        <div class="gallery-images-grid">
+            {Object.entries(gallery_images).map(([path, data]) => (
+                <Image
+                    src={data.default}
+                    alt={`${path.split("/").pop()}`}
+                    loading="lazy"
+                    class="gallery-image"
+                    style={`--gallery-image-aspect: ${data.default.width} / ${data.default.height};`}
+                />
+            ))}
+        </div>
     </section>
 </NavLayout>

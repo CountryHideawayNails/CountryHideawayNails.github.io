@@ -1,3 +1,4 @@
+import external_links from "./external_links.json";
 import type { TranslationFileKey } from "../utils/content/translation";
 
 interface NavLink {
@@ -17,11 +18,11 @@ const nav_links: NavLink[] = [
         is_external: false
     }, {
         text_key: "book_link",
-        href: "https://book.squareup.com/appointments/42l7of3kami9z2/location/LQA98RSMCZJZM/services",
+        href: external_links.booking,
         is_external: true
     }, {
         text_key: "facebook_link",
-        href: "https://www.facebook.com/groups/759089528933255",
+        href: external_links.facebook,
         is_external: true
     }
 ];
