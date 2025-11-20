@@ -1,0 +1,46 @@
+.services-section {
+    margin: 6rem 4rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.cta-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    width: fit-content;
+    height: fit-content;
+
+    margin: 8rem auto;
+}
+
+.payment-services-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.payment-service-icon {
+    width: 2rem;
+    height: 2rem;
+
+    mask-image: var(--payment-service-icon);
+    -webkit-mask-image: var(--payment-service-icon);
+    mask-size: contain;
+    mask-repeat: no-repeat;
+
+    background-color: var(--color-chn-black);
+}
+
+@media (max-width: 40rem) {
+    .services-section {
+        margin: 4rem 2rem;
+    }
+}

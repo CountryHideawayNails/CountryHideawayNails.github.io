@@ -1,22 +1,61 @@
 ---
+import "../../styles/services_page.css";
 import NavLayout from "../layouts/NavLayout.astro";
+import ServiceLists from "../dynamic/ServiceLists";
+import cash_icon from "../../assets/icons/cash.svg";
+import venmo_icon from "../../assets/logos/venmo.svg";
+import translate from "../../utils/content/translation";
+import cash_app_icon from "../../assets/logos/cash_app.svg";
+import external_links from "../../config/external_links.json";
 import type { Languages } from "../../config/language_config";
+import credit_card_icon from "../../assets/icons/credit_card.svg";
 
 interface Props {
     language: Languages;
 };
 ---
 
-<NavLayout language={Astro.props.language}>
+<NavLayout title="Services" language={Astro.props.language}>
     <!-- * Services Section * -->
 
-    <section>
+    <section class="services-section">
+        <h1 class="font-instrument-serif text-2xl text-dark weight-normal">
+            {translate(Astro.props.language, "services_page", "services_title")}
+        </h1>
 
+        <ServiceLists client:load />
     </section>
 
     <!-- * Call-To-Action Section * -->
 
-    <section>
+    <section class="cta-section">
+        <h2 class="text-center font-la-belle-aurore weight-normal text-xl">
+            {translate(Astro.props.language, "services_page", "book_call_to_action")}
+        </h2>
 
+        <a
+            class="chn-black-button"
+            href={external_links.booking}
+        >
+            {translate(Astro.props.language, "services_page", "book_button_text")}
+        </a>
+
+        <span class="text-darker weight-bold text-center">
+            {translate(Astro.props.language, "services_page", "now_accepting_label")}
+        </span>
+
+        <div class="payment-services-container">
+            {[
+                cash_icon,
+                credit_card_icon,
+                cash_app_icon,
+                venmo_icon
+            ].map((payment_service) => (
+                <div
+                    class="payment-service-icon"
+                    style={`--payment-service-icon: url(${payment_service.src});`}
+                />
+            ))}
+        </div>
     </section>
 </NavLayout>
